@@ -22,14 +22,22 @@ Route::get('/home', 'HomeController@index')->name('home');
  
 //route accueil pour les visiteurs
 Route::get('/', 'VisiteurController@index')->name('portail');
-Route::get('/actualites', 'VisiteurController@actualite');
 Route::post('/offre_store', 'VisiteurController@offre_store')->name('offre.store');
 Route::get('/offre_emploi', 'VisiteurController@emploi')->name('emploi');
 Route::get('/offre_stage', 'VisiteurController@stage')->name('stage');
+Route::get('/stage/pdf','VisiteurController@createPDF')->name('stage.pdf');
+Route::get('/emploi/pdf','VisiteurController@emploiPDF')->name('emploi.pdf');
+Route::get('stage-export', 'VisiteurController@stageExport')->name('stage-export');
+Route::get('emploi-export', 'VisiteurController@emploiExport')->name('emploi-export');
+Route::delete('/stage/{offre}','VisiteurController@destroy_stage')->name('destroy.stage');
+Route::delete('/emploi/{offre}','VisiteurController@destroy_emploi')->name('destroy.emploi');
 
 //contacter le l'entreprise
 Route::post('/contact', 'VisiteurController@contact_store')->name('contact.store');
 Route::get('/message', 'VisiteurController@message')->name('message');
+Route::delete('/message/{mg}','VisiteurController@destroy_message')->name('destroy.message');
+Route::get('/message/pdf','VisiteurController@messagePDF')->name('message.pdf');
+Route::get('message-export', 'VisiteurController@messageExport')->name('message-export');
 
                 // ******   ******    ******
 Route::get('logout', 'Auth\LoginController@logout');
@@ -46,6 +54,8 @@ Route::put('/deleted_at/{user}', 'Admin\UsersController@deleted_user')->name('us
 Route::get('/user_list', 'Admin\UsersController@list_actif')->name('users.actif');
 Route::get('/user_archive', 'Admin\UsersController@list_inactif')->name('users.inactif');
 Route::put('/activer/{user}', 'Admin\UsersController@activer_user')->name('activer.user');
+Route::get('/user_archive-export', 'Admin\UsersController@archiveExport')->name('archive-export');
+Route::get('/user_archive/pdf', 'Admin\UsersController@archivePDF')->name('archive.pdf');
 
                  // ******   ******    ******
  // profil d'un user 

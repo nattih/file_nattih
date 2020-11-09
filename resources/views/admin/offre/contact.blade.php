@@ -6,7 +6,8 @@
         <div class="container-fluid">
           <div class="card"  data-aos="fade-right">
             <div class="card-header">
-              <a class="btn btn-ntn mr-3" href=" "><i class="icofont-print" aria-hidden="true"></i> {{ __('pdf') }}</a>
+              <a class="btn btn-ntn mr-3" href=" {{route('message.pdf')}}"><i class="icofont-print" aria-hidden="true"></i> {{ __('pdf') }}</a>
+              <a class="btn btn-ntn mr-3" href=" {{route('message-export')}}"><i class="icofont-print" aria-hidden="true"></i> {{ __('excel') }}</a>
               <b> La liste des avis récues de nos visiteurs</b>
             </div>
             <div class="card-body table-responsive  p-0">
@@ -33,7 +34,7 @@
                         <td >{{$mg->message}}</td>
                         <td >
                             <a href=" "><button class="btn btn-ntn">Reponse</button></a>
-                            <form action=" " method="post" class="d-inline">
+                            <form action="{{route('destroy.message', $mg->id)}} " method="post" class="d-inline">
                               @csrf
                               @method('DELETE')
                               <button type="submit" class="btn btn-warning"><i class="fas fa-trash"></i></button>

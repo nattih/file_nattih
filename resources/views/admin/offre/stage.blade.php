@@ -7,8 +7,8 @@
           <div class="card"  data-aos="fade-right">
             <div class="card-header">
               @can('delete-users')
-              <a class="btn btn-ntn" href=" "><i class="icofont-print" aria-hidden="true"></i>  {{ __('pdf') }}</a>
-              <a class="btn btn-ntn" href=" "><i class="icofont-print" aria-hidden="true"></i>  {{ __('excel') }}</a>
+              <a class="btn btn-ntn" href="{{route('stage.pdf')}}"><i class="icofont-print" aria-hidden="true"></i>  {{ __('pdf') }}</a>
+              <a class="btn btn-ntn" href=" {{ route('stage-export') }}"><i class="icofont-print" aria-hidden="true"></i>  {{ __('excel') }}</a>
               <b> La liste des demandes de stage récues</b>
               @endcan
             </div>
@@ -35,7 +35,7 @@
                         <td >
                             <a href=" "><button class="btn btn-ntn">Reponse</button></a>
                             <a href=" {{('storage').'/'.$offre->dossier}} "><button class="btn btn-ntn"> <i class="fas fa-download"></i></button></a>
-                            <form action=" " method="post" class="d-inline">
+                            <form action="{{route('destroy.stage', $offre->id)}}" method="post" class="d-inline">
                               @csrf
                               @method('DELETE')
                               <button type="submit" class="btn btn-warning"><i class="fas fa-trash"></i></button>

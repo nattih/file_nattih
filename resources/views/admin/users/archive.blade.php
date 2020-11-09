@@ -7,8 +7,8 @@
           <div class="card"  data-aos="fade-right">
             <div class="card-header">
               @can('delete-users')
-              <a class="btn btn-ntn" href=" "><i class=" icofont-print" aria-hidden="true"></i> {{ __('pdf') }}</a>
-              <a class="btn btn-ntn" href=" "><i class=" icofont-print" aria-hidden="true"></i> {{ __('excel') }}</a>
+              <a class="btn btn-ntn" href=" {{route('archive.pdf')}}"><i class=" icofont-print" aria-hidden="true"></i> {{ __('pdf') }}</a>
+              <a class="btn btn-ntn" href="{{route('archive-export')}} "><i class=" icofont-print" aria-hidden="true"></i> {{ __('excel') }}</a>
               @endcan
             </div>
             <div class="card-body table-responsive  p-0">

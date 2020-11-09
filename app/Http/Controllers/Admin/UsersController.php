@@ -8,10 +8,13 @@ use App\Poste;
 
 use App\Departement;
 use App\CahierVisite;
+use PDF;
 use Illuminate\Http\Request;
+use App\Exports\ArchiveExport;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Session;
 
 class UsersController extends Controller
@@ -180,4 +183,16 @@ public function __construct(){
         $user->save();
         return redirect()->route('users.inactif');
     }
+    public function archivePDF() { 
+
+        $data = User::where('deleted_at', '=', 0)->get();
+        view()->share('users',$data);
+        $pdf = PDF::loadView('pdf.archive', $data);
+        return $pdf->download('archive_personnel_liste.pdf');
+      }
+
+    public function archiveExport() 
+      {
+          return Excel::download(new ArchiveExport, 'archive_personnel_liste.xlsx');
+      }  
 }

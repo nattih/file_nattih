@@ -1,12 +1,17 @@
 <?php
 
 namespace App\Http\Controllers;
-use Illuminate\Support\Facades\Session;
-use App\Categorie;
-use App\Contact;
+use PDF;
 use App\Event;
 use App\Offre;
+use App\Contact;
+use App\Categorie;
+use App\Exports\OffreExport;
 use Illuminate\Http\Request;
+use App\Exports\EmploiExport;
+use App\Exports\MessageExport;
+use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Session;
 
 class VisiteurController extends Controller
 {
@@ -53,6 +58,15 @@ class VisiteurController extends Controller
        $offres= Offre::where('offre', '=', 0)->paginate(4);
         return view('admin.offre.stage', compact('offres'));
     }
+
+    public function destroy_stage( Offre $offre){
+        $offre->delete();
+        return redirect()->back();
+    }
+    public function destroy_emploi( Offre $offre){
+      $offre->delete();
+      return redirect()->back();
+    }
     //formualire de contact
 
     public function contact_store(Request $request)
@@ -74,4 +88,53 @@ class VisiteurController extends Controller
        $mgs=  Contact::latest()->paginate(4);
         return view('admin.offre.contact', compact('mgs'));
     }
+
+    public function destroy_message(Contact $mg){
+        $mg->delete();
+        return redirect()->back();
+      }
+    // generer la liste en pdf
+
+    public function createPDF() { 
+
+        $data = Offre::where('offre', '=', 0)->get();
+        view()->share('offres',$data);
+        $pdf = PDF::loadView('admin.offre.pdf.stage', $data);
+        return $pdf->download('stage_liste.pdf');
+      }
+
+      public function emploiPDF() { 
+
+        $data = Offre::where('offre', '=', 1)->get();
+        view()->share('offres',$data);
+        $pdf = PDF::loadView('admin.offre.pdf.emploi', $data);
+        return $pdf->download('emploi_liste.pdf');
+      }
+
+
+      public function messagePDF() { 
+
+        $data = Contact::all();
+        view()->share('mgs',$data);
+        $pdf = PDF::loadView('admin.offre.pdf.message', $data);
+        return $pdf->download('message_liste.pdf');
+      }
+// generer excel liste
+      public function stageExport() 
+      {
+          return Excel::download(new OffreExport, 'stage_liste.xlsx');
+      }  
+
+      public function emploiExport() 
+      {
+          return Excel::download(new EmploiExport, 'emploi_liste.xlsx');
+      }  
+
+      public function messageExport() 
+      {
+          return Excel::download(new MessageExport, 'message_liste.xlsx');
+      }  
+
+
 }
+  
