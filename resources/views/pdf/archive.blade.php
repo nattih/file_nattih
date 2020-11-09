@@ -22,6 +22,8 @@
                     <th scope="col">Sexe</th>
                     <th scope="col">Contact</th>
                     <th scope="col">Email</th>
+                    <th scope="col">Residence</th>
+                    <th scope="col">poste</th>
                   </tr>
             </thead>
             <tbody>
@@ -34,6 +36,8 @@
                     <td scope="row">{{$data->sexe}}</td>
                     <td scope="row">{{$data->contact}}</td>
                     <td scope="row">{{$data->email}}</td>
+                    <td scope="row">{{$data->residence}}</td>
+                    <td scope="row">{{$data->poste->nom}}</td>
                 </tr>
                 @endforeach
             </tbody>

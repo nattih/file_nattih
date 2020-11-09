@@ -187,7 +187,7 @@ public function __construct(){
 
         $data = User::where('deleted_at', '=', 0)->get();
         view()->share('users',$data);
-        $pdf = PDF::loadView('pdf.archive', $data);
+        $pdf = PDF::loadView('pdf.archive', $data)->setPaper('a4', 'landscape');
         return $pdf->download('archive_personnel_liste.pdf');
       }
 

@@ -15,7 +15,8 @@
                     <th scope="col">N°</th>
                     <th scope="col">Date</th>
                     <th scope="col">Nom & prenom</th>
-                    {{-- <th scope="col">Poste</th> --}}
+                    <th scope="col">Departement</th>
+                    <th scope="col">Poste</th>
                     <th scope="col">Titre</th>
                     <th scope="col" class="">Option </th>
                   </tr>
@@ -26,17 +27,20 @@
                         <td scope="row">{{++$key}}</td>
                         <td scope="row">{{$rendu->created_at->format('d/m/y à H:m')}}</td>
                         <td >{{$rendu->user->name}} {{$rendu->user->prenom}}</td>
-                        {{-- <td >{{$rendu->user->poste->nom}}</td> --}}
+                        <td >
+                          @if($rendu->user->departement )
+                            {{$rendu->user->departement->nom}}
+                          @endif
+                          </td>
+                        <td >
+                          @if($rendu->user->poste )
+                            {{$rendu->user->poste->nom}}
+                          @endif
+                          </td>
                         <td >{{ $rendu->titre}}</td>
                         <td >
-                           {{-- <a href=" "><button class="btn btn-ntn"><i class="fas fa-eye"></i></button></a> --}}
                             <a href="{{route('rendu.show',$rendu)}}"><button class="btn btn-success">Reponse</button></a>
                             <a href=" {{('storage').'/'.$rendu->document}} "><button class="btn btn-ntn"><i class="fas fa-download"></i></button></a>
-                            {{-- <form action=" " method="post" class="d-inline">
-                              @csrf
-                              @method('DELETE')
-                              <button type="submit" class="btn btn-warning"><i class="fas fa-trash"></i></button>
-                            </form> --}}
                         </td>
                     </tr>
               @endforeach

@@ -18,7 +18,9 @@
                     <th scope="col">N°</th>
                     <th scope="col">Nom & prénom(s)</th>
                     <th scope="col">Email</th>
-                    <th scope="col">Roles</th>
+                    <th scope="col">Departement</th>
+                    <th scope="col">poste</th>
+                    <th scope="col">Desactivé</th>
                     <th scope="col">Actions </th>
                   </tr>
                 </thead>
@@ -28,7 +30,9 @@
                         <td scope="row">{{++$key}}</td>
                         <td >{{$user->name}} {{$user->prenom}}</td>
                         <td >{{$user->email}}</td>
-                        <td >{{implode(' , ' , $user->roles()->get()->pluck('name')->toArray())}}</td>
+                        <td >{{$user->departement->nom}}</td>
+                        <td >{{$user->poste->nom}}</td>
+                        <td >{{$user->updated_at->format('d/m/y à H:m')}}</td>
                         <td >
                             @can('delete-users')
                             <form action="{{route('activer.user',$user->id)}}" method="post" class="d-inline">
